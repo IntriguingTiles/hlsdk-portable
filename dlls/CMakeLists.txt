@@ -181,10 +181,11 @@ else()
 	add_definitions(-DNO_VOICEGAMEMGR)
 endif()
 
-add_library (${SVDLL_LIBRARY} SHARED ${SVDLL_SOURCES})
+add_executable (${SVDLL_LIBRARY} ${SVDLL_SOURCES} wiiu_rpl_entry_stub.cpp)
 target_link_libraries(${SVDLL_LIBRARY} vcs_info)
+wut_add_exports(${SVDLL_LIBRARY} wiiu_exports.def)
 
-set_target_properties (${SVDLL_LIBRARY} PROPERTIES POSITION_INDEPENDENT_CODE 1)
+# set_target_properties (${SVDLL_LIBRARY} PROPERTIES POSITION_INDEPENDENT_CODE 1)
 
 if(APPLE AND NOT "${SERVER_LIBRARY_NAME_OSX}" STREQUAL "")
 	# on Apple platforms we always use gamedll_osx liblist/gameinfo key, if it's set
@@ -198,6 +199,7 @@ else()
 endif()
 
 set_target_postfix_with_name(${SVDLL_LIBRARY} ${SVDLL_NAME})
+wut_create_rpl(${SVDLL_LIBRARY})
 
 set_property(TARGET ${SVDLL_LIBRARY} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 

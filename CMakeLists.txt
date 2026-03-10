@@ -51,6 +51,8 @@ option(LTO "Enable interprocedural optimization" OFF)
 option(POLLY "Enable pollyhedral optimization" OFF)
 option(ANDROID_APK "Enable APK styled deploy" OFF)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-threadsafe-statics -mstrict-align")
+
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 	set(CMAKE_INSTALL_PREFIX "")
 endif()

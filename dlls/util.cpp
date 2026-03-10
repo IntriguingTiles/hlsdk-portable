@@ -2167,7 +2167,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 					switch( pTest->fieldType )
 					{
 					case FIELD_TIME:
-					#if __VFP_FP__
+					#if __VFP_FP__ || XASH_WIIU
 						memcpy( &timeData, pInputData, 4 );
 						LittleToHostSW( timeData );
 						// Re-base time variables
@@ -2255,7 +2255,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 							*( (EOFFSET *)pOutputData ) = 0;
 						break;
 					case FIELD_VECTOR:
-						#if __VFP_FP__
+						#if __VFP_FP__ || XASH_WIIU
 						memcpy( pOutputData, pInputData, sizeof( Vector ) );
 						LittleToHostSW( ( (float*)pOutputData)[0] );
 						LittleToHostSW( ( (float*)pOutputData)[1] );
@@ -2267,7 +2267,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 						#endif
 						break;
 					case FIELD_POSITION_VECTOR:
-						#if  __VFP_FP__
+						#if  __VFP_FP__ || XASH_WIIU
 						{
 							Vector tmp;
 							memcpy( &tmp, pInputData, sizeof( Vector ) );

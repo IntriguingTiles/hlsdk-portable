@@ -197,8 +197,9 @@ if(USE_VOICEMGR)
 	#	../game_shared/voice_status.cpp)
 endif()
 
-add_library (${CLDLL_LIBRARY} SHARED ${CLDLL_SOURCES})
+add_executable (${CLDLL_LIBRARY} ${CLDLL_SOURCES} wiiu_rpl_entry_stub.cpp)
 target_link_libraries(${CLDLL_LIBRARY} vcs_info)
+wut_add_exports(${CLDLL_LIBRARY} wiiu_exports.def)
 
 if (GOLDSOURCE_SUPPORT)
 	target_link_libraries( ${CLDLL_LIBRARY} ${CMAKE_DL_LIBS} )
@@ -224,10 +225,11 @@ if(WIN32)
 	endif()
 endif()
 
-set_target_properties (${CLDLL_LIBRARY} PROPERTIES
-	POSITION_INDEPENDENT_CODE 1)
+# set_target_properties (${CLDLL_LIBRARY} PROPERTIES
+# 	POSITION_INDEPENDENT_CODE 1)
 
 set_target_postfix(${CLDLL_LIBRARY})
+wut_create_rpl(${CLDLL_LIBRARY})
 
 set_property(TARGET ${CLDLL_LIBRARY} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
